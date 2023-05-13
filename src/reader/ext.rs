@@ -1,6 +1,6 @@
 use std::io;
 
-pub(crate) trait ReadExt: io::Read {
+pub trait ReadExt: io::Read {
     /// Read `size` bytes and convert them to a [`String`].
     /// Every trailing null terminator will be removed.
     fn read_string_limited(&mut self, size: usize) -> io::Result<String>;

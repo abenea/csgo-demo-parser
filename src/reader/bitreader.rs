@@ -86,6 +86,7 @@ impl<'a> BitReader<'a> {
     }
 
     /// Read `size` bits and cast them to a [`u32`].
+    #[allow(dead_code)]
     pub fn read_bits_to_u32(&mut self, size: usize) -> Result<u32> {
         if size > 32 {
             return Err(Error::new(ErrorKind::InvalidInput, "overflow (size > 32)"));

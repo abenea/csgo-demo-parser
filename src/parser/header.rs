@@ -51,7 +51,11 @@ impl DemoHeader {
             }
             .into());
         }
+        DemoHeader::try_new_after_demo_type(reader)
+    }
 
+    /// Like try_new, but assumes the demo type has already been read and is valid.
+    pub(crate) fn try_new_after_demo_type(reader: &mut CodedInputStream) -> Result<Self> {
         let demo_protocol = reader.read_fixed32()?;
         if demo_protocol != EXPECTED_DEMO_PROTOCOL {
             return Err(HeaderParsingError::InvalidDemoProtocol {
@@ -76,7 +80,7 @@ impl DemoHeader {
         }
 
         Ok(Self {
-            demo_type,
+            demo_type: EXPECTED_DEMO_TYPE.into(),
             demo_protocol,
             network_protocol,
             server_name,

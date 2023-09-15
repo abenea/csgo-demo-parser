@@ -76,6 +76,14 @@ impl<'a> DemoParser<'a> {
         Ok(Self { header, reader })
     }
 
+    pub fn try_new_after_demo_type(read: &'a mut dyn io::Read) -> Result<Self> {
+        let mut reader = CodedInputStream::new(read);
+        let header = DemoHeader::try_new_after_demo_type(&mut reader)?;
+        trace!(?header);
+
+        Ok(Self { header, reader })
+    }
+
     /// Create a new [`DemoParser`] based on a [`BufRead`](std::io::BufRead).
     /// The header of the demo file will get parsed.
     ///
